@@ -1,12 +1,18 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ChannelInfo from '../components/ChannelInfo';
 import RelatedVideos from '../components/RelatedVideos';
 
 export default function VideoDetail() {
+  const navigate = useNavigate();
+  const errorCheck = useParams();
+  console.log(errorCheck);
   const {
     state: { video },
   } = useLocation();
+  if (video === null) {
+    navigate('/');
+  }
   const { title, channelId, channelTitle, description } = video.snippet;
   return (
     <section className='flex flex-col lg:flex-row'>
@@ -16,7 +22,7 @@ export default function VideoDetail() {
           type='text/html'
           width='100%'
           height='640'
-          src={`http://www.youtube.com/embed/${video.id}`}
+          src={`https://www.youtube.com/embed/${video.id}`}
           frameborder='0'
           title={title}
         />
