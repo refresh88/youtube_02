@@ -1,12 +1,18 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ChannelInfo from '../components/ChannelInfo';
 import RelatedVideos from '../components/RelatedVideos';
 
 export default function VideoDetail() {
+  const navigate = useNavigate();
+  const errorCheck = useParams();
+  console.log(errorCheck);
   const {
     state: { video },
   } = useLocation();
+  if (video === null) {
+    navigate('/');
+  }
   const { title, channelId, channelTitle, description } = video.snippet;
   return (
     <section className='flex flex-col lg:flex-row'>
